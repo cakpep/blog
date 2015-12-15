@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBoolsTable extends Migration {
+class CreatePegawaisTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateBoolsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('bools', function(Blueprint $table)
+		Schema::create('pegawais', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -26,7 +26,7 @@ class CreateBoolsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('bools');
+		Schema::drop('pegawais');
 	}
 
 }

@@ -2,10 +2,11 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Pegawai;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreatePegawaiRequest;
 
-class NerdControllers extends Controller {
+class PegawaiController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -14,7 +15,9 @@ class NerdControllers extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$pegawai = Pegawai::latest('created_at')->get();
+
+        return view('pegawai.index', compact('pegawai'));
 	}
 
 	/**
@@ -24,7 +27,7 @@ class NerdControllers extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('pegawai.create');
 	}
 
 	/**
@@ -32,9 +35,11 @@ class NerdControllers extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreatePegawaiRequest $request)
 	{
-		//
+	    Pegawai::create($request->all());
+
+	    return redirect('pegawai')->with('message', 'Data berhasil ditambahkan!');        	   	
 	}
 
 	/**
@@ -45,7 +50,9 @@ class NerdControllers extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$pegawai = Pegawai::find($id);
+
+        return view('pegawai.show', compact('pegawai'));
 	}
 
 	/**
@@ -56,7 +63,9 @@ class NerdControllers extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$pegawai = Pegawai::find($id);
+
+        return view('pegawai.edit', compact('pegawai'));
 	}
 
 	/**
@@ -67,7 +76,10 @@ class NerdControllers extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$pegawaiUpdate = Request::all();
+	    $pegawai = Pegawai::find($id);
+	    $pegawai->update($pegawaiUpdate);
+	    return redirect('pegawai')->with('message', 'Data berhasil dirubah!');
 	}
 
 	/**
@@ -78,7 +90,9 @@ class NerdControllers extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		Pegawai::find($id)->delete();
+
+        return redirect('pegawai')->with('message', 'Data berhasil dihapus!');
 	}
 
 }
